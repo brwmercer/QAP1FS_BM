@@ -21,3 +21,29 @@ function errorMsg(Message) {
  process.exit(1)
 }
 
+function generatePassword() {
+    const lowChar = 'abcdefghijklmnopqrstuvwxyz';
+    let charSet = lowChar;
+  
+    // Use process.argv instead of arguments
+    const lenIndex = process.argv.indexOf('--length'); 
+  
+    let length = 8; 
+    if (lenIndex !== -1) {
+      const lengthArgIndex = lenIndex + 1;
+      if (lengthArgIndex < process.argv.length) {
+        const potentialLength = process.argv[lengthArgIndex];
+        if (!isNaN(potentialLength)) {
+          length = parseInt(potentialLength);
+        } 
+        else {
+          errorMsg('Enter a valid number for length of password.');
+        }
+      }
+    }
+
+    const password = Array.from({length}, () => charSet[Math.floor(Math.random() * charSet.length)]).join('');
+    console.log(password);
+}
+
+generatePassword();
