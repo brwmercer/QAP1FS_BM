@@ -13,10 +13,13 @@ Arguments:
 
 `;
 
+// Help Message
+
 if (process.argv.includes('--help')) {
     console.log(helpMsg);
     process.exit(0)
 }
+// Function for Error Message
 
 function errorMsg(Message) {
  console.error(`Error: ${Message}`);
@@ -24,6 +27,7 @@ function errorMsg(Message) {
  process.exit(1)
 }
 
+// Main Function for generating passwords
 function generatePassword() {
     const lowChar = 'abcdefghijklmnopqrstuvwxyz';
     const upChar = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -41,7 +45,8 @@ function generatePassword() {
         charSet += symbols;
     }
   
-    // Use process.argv instead of arguments
+
+    // Determine that given length is a valid number
     const lenIndex = process.argv.indexOf('--length'); 
   
     let length = 8; 
@@ -58,6 +63,7 @@ function generatePassword() {
       }
     }
 
+    // Create password using given arguments and math.random to randomize characters
     const password = Array.from({length}, () => charSet[Math.floor(Math.random() * charSet.length)]).join('');
     console.log(password);
 }
